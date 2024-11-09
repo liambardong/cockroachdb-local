@@ -1,0 +1,16 @@
+services:
+  cockroachdb:
+    image: cockroachdb/cockroach:latest
+    ports:
+      - "26257:26257" # Port for the cockroachDB SQL UI.
+      - "8080:8080" # Port for the cockroachDB web UI.
+    environment:
+      - COCKROACH_DATABASE=devdb # this is optional to create a DB on startup
+      - COCKROACHDB_USER=root
+      - COCKROACHDB_PASSWORD=
+    command: ["start-single-node", "--insecure"] #starts cockroachDB in insecure mode
+    volumes:
+      - devreceipt-data:/cockroach/cockroach-data # Persist data using a Docker volume
+
+volumes:
+  devreceipt-data:
